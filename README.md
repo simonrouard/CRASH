@@ -14,6 +14,25 @@ Moreover, the flexibility of diffusion models lets us perform sound design on dr
 generation, interpolations between sounds or inpainting. By using the latent representation given by the forward Ordinary Differential Equation, you can also load 
 any 44.1kHz drum sound and manipulate it. 
 
+
+## Requirements
+Run the following line in your terminal in order to install all the requirements
+```sh
+pip install -r requirements.txt
+```
+
 ## What is in the repo?
-All the python files excepts 'inference.py' and 'inference_notebook.ipynb' are useful to train the model on a mono sound dataset. 
-To train a model, you need to adapt the 'params.py'
+* All the python files excepts `inference.py`, `model_classifier.py` and `inference_notebook.ipynb` are dedicated to the training of the model on a mono sound dataset. 
+To train a model, you need to adapt the `params.py` file to your configuration. Then, you just have to run:
+```sh
+python3 __main__.py
+```
+* The file `model_classifier.py` contains the architecture of the noise conditioned classifier necessary to the class-conditional generations. It has only been trained on VP SDEs.
+* The file `inference.py` contains all the types of sampling. See the Jupyter Notebook `inference_notebook.ipynb` to understand all the possibilities that the model offers. 
+
+## Checkpoints of the model
+
+You can download the 
+
+## How to extend the code?
+* New SDEs: you can train the model with a new SDE by creating a new class in the `sde.py` file. It must contain the functions sigma(t), mean(t), beta(t) and g(t) which are linked in the Appendix D of the paper, formula (33). 
