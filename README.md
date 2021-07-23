@@ -4,6 +4,7 @@ by [Simon Rouard](https://github.com/simonrouard) and [Gaëtan Hadjeres](https:/
 You can hear some material on [this link](https://crash-diffusion.github.io/crash/).
 --------------------
 
+![schematic](assets/gif_snare.gif)
 
 
 We propose to use the [continuous framework of diffusion models](https://arxiv.org/abs/2011.13456) to the task of unconditional audio generation on drum sounds. 
