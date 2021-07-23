@@ -4,10 +4,16 @@ by [Simon Rouard](https://github.com/simonrouard) and [Gaëtan Hadjeres](https:/
 You can hear some material on [this link](https://crash-diffusion.github.io/crash/).
 --------------------
 
-![schematic](assets/gif_snare.gif)
+![snare_generation](assets/gif_snare.gif) ![kick_generation](assets/kick.gif)
+
 
 
 We propose to use the [continuous framework of diffusion models](https://arxiv.org/abs/2011.13456) to the task of unconditional audio generation on drum sounds. 
+
 Moreover, the flexibility of diffusion models lets us perform sound design on drums such as : regeneration of variations of a sound, class-conditional/class mixing 
 generation, interpolations between sounds or inpainting. By using the latent representation given by the forward Ordinary Differential Equation, you can also load 
 any 44.1kHz drum sound and manipulate it. 
+
+## What is in the repo?
+All the python files excepts 'inference.py' and 'inference_notebook.ipynb' are useful to train the model on a mono sound dataset. 
+To train a model, you need to adapt the 'params.py'
