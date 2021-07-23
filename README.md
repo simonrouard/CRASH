@@ -34,7 +34,8 @@ You can monitor the model during training by running:
 
 ## Checkpoints of the model
 
-You can download the 
+You can download the folder with the saved weights on this [link](https://drive.google.com/drive/folders/1UFVVnTFDmPSdzwuV_1GIVBW4BoJWKaFm?usp=sharing).
+Then, put the folder `saved_weights` in your repository so that the notebook works well. 
 
 ## How to extend the code?
 * New SDEs: you can train the model with a new SDE by creating a new class in the `sde.py` file. It must contain the functions sigma(t), mean(t), beta(t) and g(t) which are linked in the Appendix D of the paper, formula (33). 
