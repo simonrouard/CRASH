@@ -12,7 +12,7 @@ We propose to use the [continuous framework of diffusion models](https://arxiv.o
 
 Moreover, the flexibility of diffusion models lets us perform sound design on drums such as : regeneration of variations of a sound, class-conditional/class mixing 
 generation, interpolations between sounds or inpainting. By using the latent representation given by the forward Ordinary Differential Equation, you can also load 
-any 44.1kHz drum sound and manipulate it. 
+any 44.1kHz drum sound and manipulate it. It has to be of length 21.000 if you use the pretrained checkpoints provided.  
 
 
 ## Requirements
@@ -27,6 +27,8 @@ To train a model, you need to adapt the `params.py` file to your configuration. 
 ```sh
 python3 __main__.py
 ```
+You can monitor the model during training by running:
+`tensorboard --logdir weights` (if you chose 'weights' as 'model_dir' in the `params.py` file)
 * The file `model_classifier.py` contains the architecture of the noise conditioned classifier necessary to the class-conditional generations. It has only been trained on VP SDEs.
 * The file `inference.py` contains all the types of sampling. See the Jupyter Notebook `inference_notebook.ipynb` to understand all the possibilities that the model offers. 
 
