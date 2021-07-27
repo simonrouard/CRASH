@@ -1,4 +1,5 @@
 # CRASH: Raw Audio Score-based Generative Modeling for Controllable High-resolution Drum Sound Synthesis
+
 This repo contains a PyTorch implementation for the paper [CRASH: Raw Audio Score-based Generative Modeling for Controllable High-resolution Drum Sound Synthesis](https://arxiv.org/abs/2106.07431) 
 by [Simon Rouard](https://github.com/simonrouard) and [Gaëtan Hadjeres](https://github.com/Ghadjeres) accepted at [ISMIR 2021](https://ismir2021.ismir.net). 
 You can hear some material on [this link](https://crash-diffusion.github.io/crash/).
