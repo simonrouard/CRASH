@@ -1,0 +1,10 @@
+matplotlib @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-suite_1611858708474/work
+numpy @ file:///tmp/build/80754af9/numpy_and_numpy_base_1603570489231/work
+scipy @ file:///tmp/build/80754af9/scipy_1614022789989/work
+seaborn @ file:///tmp/build/80754af9/seaborn_1600553570093/work
+tensorboard @ file:///home/conda/feedstock_root/build_artifacts/tensorboard_1610699261066/work/tensorboard-2.4.1-py3-none-any.whl
+tensorboard-plugin-wit==1.6.0
+tensorflow @ file:///home/builder/ktietz/conda/conda-bld/tensorflow-base_1597935779250/work/tensorflow_pkg/tensorflow-2.3.0-cp38-cp38-linux_x86_64.whl
+tensorflow-estimator @ file:///tmp/build/80754af9/tensorflow-estimator_1599136169057/work/whl_temp/tensorflow_estimator-2.3.0-py2.py3-none-any.whl
+torch==1.8.0
+torchaudio==0.8.0a0+a751e1d

@@ -3,10 +3,31 @@ import torch
 from scipy.integrate import solve_ivp
 
 
+def compute_interpolation_in_latent(latent1, latent2, lambd):
+    '''
+    Implementation of Spherical Linear Interpolation: https://en.wikipedia.org/wiki/Slerp
+    latent1: tensor of shape (1, 21000)
+    latent2: tensor of shape (1, 21000)
+    lambd: list of floats between 0 and 1 representing the parameter t of the Slerp
+    '''
+    device = latent1.device
+    lambd = torch.tensor(lambd)
+
+    cos_omega = latent1[0]@latent2[0] / \
+        (torch.linalg.norm(latent1[0])*torch.linalg.norm(latent2[0]))
+    omega = torch.arccos(cos_omega).item()
+
+    a = torch.sin((1-lambd)*omega) / np.sin(omega)
+    b = torch.sin(lambd*omega) / np.sin(omega)
+    a = a.unsqueeze(1).to(device)
+    b = b.unsqueeze(1).to(device)
+    return a * latent1 + b * latent2
+
+
 class SDESampling:
     """
-    Euler-Maruyama discretisation of the SDE as in https://arxiv.org/abs/2011.13456
-    This the less precise discretization
+    Euler-Maruyama discretization of the SDE as in https://arxiv.org/abs/2011.13456
+    This is the less precise discretization
     """
 
     def __init__(self, model, sde):
@@ -55,7 +76,7 @@ class SDESampling:
 
 class SDESampling2:
     """
-    DDPM-like discretisation of the SDE as in https://arxiv.org/abs/2107.00630
+    DDPM-like discretization of the SDE as in https://arxiv.org/abs/2107.00630
     This is the most precise discretization
     """
 
@@ -104,7 +125,7 @@ class SDESampling2:
 
 class SDESampling3:
     """
-    DDIM-like discretisation of the SDE as in https://arxiv.org/abs/2106.07431 Alg. 6
+    DDIM-like discretization of the SDE as in https://arxiv.org/abs/2106.07431 Alg. 6
     This is an intermediate model in terms of precision
     """
 
@@ -316,7 +337,7 @@ class RandomDDIMSampling:
         self.sde = sde
 
     def create_schedules(self, nb_steps):
-        t_schedule = torch.arange(0, nb_steps + 1) / nb_steps
+        t_schedule = torch.arange(1, nb_steps + 1) / nb_steps
         t_schedule = (self.sde.t_max - self.sde.t_min) * \
             t_schedule + self.sde.t_min
         sigma_schedule = self.sde.sigma(t_schedule)
@@ -596,7 +617,7 @@ class ClassMixingSDE:
         audio = (audio - sigma[0] * self.model(audio,
                                                sigma[0])) / self.sde.mean(t_0)
 
-        return audio
+        return audio.detach()
 
 
 class ClassMixingSDE2:
@@ -652,7 +673,7 @@ class ClassMixingSDE2:
         audio = (audio - sigma[0] * self.model(audio,
                                                sigma[0])) / m[0]
 
-        return audio
+        return audio.detach()
 
 
 class ClassMixingODE:
@@ -704,7 +725,7 @@ class ClassMixingODE:
         audio = (audio - sigma[0] * self.model(audio,
                                                sigma[0])) / self.sde.mean(t_0)
 
-        return audio
+        return audio.detach()
 
 
 class ClassMixingDDIM:
@@ -754,12 +775,12 @@ class ClassMixingDDIM:
         audio = (audio - sigma[0] * self.model(audio,
                                                sigma[0])) / m[0]
 
-        return audio
+        return audio.detach()
 
 
 class RegenerateSDESampling2:
     """
-    Using the DDPM-like discretisation of the SDE (like SDESampling2 class) of a drum sound noised at the noise level sigma
+    Using the DDPM-like discretization of the SDE (like SDESampling2 class) of a drum sound noised at the noise level sigma
     """
 
     def __init__(self, model, sde):
@@ -808,10 +829,10 @@ class RegenerateSDESampling2:
             audio = (audio - sigma[0] * self.model(audio,
                                                    sigma[0])) / m[0]
 
-        return audio
+        return audio.detach()
 
 
-class RandomClassConditionalDDIMSampling:
+class RandomClassMixingDDIM:
     """
     Adapted the DDIM to the SDE Framework. 
     eta = 1 corresponds to the SDESampling2 class
@@ -878,4 +899,4 @@ class RandomClassConditionalDDIMSampling:
         audio = (audio - sigma[0] * self.model(audio,
                                                sigma[0])) / m[0]
 
-        return audio
+        return audio.detach()
