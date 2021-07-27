@@ -124,33 +124,3 @@ class GeneralizedSubVpSdeCos(SDE):
              (self.gamma * self.eta * self.sigma(t)**self.gamma /
               (1 - self.sigma(t)**self.gamma) + 1))**0.5
         return g
-
-
-class SnrSdeLinear(SDE):
-    def __init__(self, sigma_min, mean_min=None):
-        self.sigma_min = sigma_min
-        self.mean_min = mean_min
-
-        # Compute a and b
-        self.b = -np.log(self.sigma_min)
-        self.a = np.log(self.mean_min) - self.b
-
-        self.t_min = torch.zeros((1,))
-        self.t_max = torch.ones((1,))
-
-    def sigma(self, t: torch.Tensor):
-        return (1 - self.sigma_min) * t + self.sigma_min
-
-    def mean(self, t: torch.Tensor):
-        mean = self.sigma(t) * torch.exp(self.a * t + self.b)
-        # assert (mean <= 1).all()
-        return mean
-
-    def sigma_derivative(self, t: torch.Tensor):
-        return (1 - self.sigma_min)
-
-    def beta(self, t: torch.Tensor):
-        return -2 * (self.sigma_derivative(t) / self.sigma(t) + self.a)
-
-    def g(self, t: torch.Tensor):
-        return (-2 * self.a)**(0.5) * self.sigma(t)
