@@ -3,3 +3,4 @@ saved_weights_old/
 .ipynb_checkpoints/
 __pycache__
 img/
+model_classifier_v2.py
