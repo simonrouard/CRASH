@@ -778,7 +778,7 @@ class ClassMixingDDIM:
         return audio.detach()
 
 
-class RegenerateSDESampling2:
+class RegenerateSDESampling:
     """
     Using the DDPM-like discretization of the SDE (like SDESampling2 class) of a drum sound noised at the noise level sigma
     """
